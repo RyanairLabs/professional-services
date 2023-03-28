@@ -72,11 +72,11 @@ def create_dataset(args):
 
     global detailedBBDataset
     standard_source_id = "{}.{}.{}".format(
-        args.PROJECT_ID, args.STANDARD_BILLING_EXPORT_DATASET_NAME,
+        args.PROJECT_ID_BILLING_EXPORT, args.STANDARD_BILLING_EXPORT_DATASET_NAME,
         args.standard_table)
 
     detailed_source_id = "{}.{}.{}".format(
-        args.PROJECT_ID, args.DETAILED_BILLING_EXPORT_DATASET_NAME,
+        args.PROJECT_ID_BILLING_EXPORT, args.DETAILED_BILLING_EXPORT_DATASET_NAME,
         args.detailed_table)
 
     standard_table_info = None
@@ -147,14 +147,14 @@ def create_billboard_view(args, isStandard):
     global detailedBBDataset
 
     if isStandard is True:
-        source_id = "{}.{}.{}".format(args.PROJECT_ID,
+        source_id = "{}.{}.{}".format(args.PROJECT_ID_BILLING_EXPORT,
                                       args.STANDARD_BILLING_EXPORT_DATASET_NAME,
                                       args.standard_table)
         view_id = "{}.{}.{}".format(args.PROJECT_ID,
                                     args.BILLBOARD_DATASET_NAME_TO_BE_CREATED,
                                     args.bb_standard)
     else:
-        source_id = "{}.{}.{}".format(args.PROJECT_ID,
+        source_id = "{}.{}.{}".format(args.PROJECT_ID_BILLING_EXPORT,
                                       args.DETAILED_BILLING_EXPORT_DATASET_NAME,
                                       args.detailed_table)
         view_id = "{}.{}.{}".format(args.PROJECT_ID, detailedBBDataset,
@@ -249,6 +249,11 @@ def main(argv):
                         dest='PROJECT_ID',
                         type=str,
                         help='Project Id',
+                        required=True)
+    parser.add_argument('-prb',
+                        dest='PROJECT_ID_BILLING_EXPORT',
+                        type=str,
+                        help='Project Id where the billing comes from',
                         required=True)
     parser.add_argument('-se',
                         dest='STANDARD_BILLING_EXPORT_DATASET_NAME',
