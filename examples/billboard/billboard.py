@@ -183,10 +183,8 @@ def create_billboard_view(args, isStandard):
     FROM UNNEST(s.credits) x),0) AS credits_sum_amount,
     COALESCE((SELECT SUM(x.amount)
     FROM UNNEST(s.credits) x),0) + cost as net_cost,
-    PARSE_DATE("%Y%m", invoice.month) AS Invoice_Month,
-    _PARTITIONDATE AS date
+    PARSE_DATE("%Y%m", invoice.month) AS Invoice_Month
     from `{}` s
-    WHERE _PARTITIONDATE > DATE_SUB(CURRENT_DATE(), INTERVAL 13 MONTH)
     """.format(view_id, source_id)
 
     # Not sure why this need project_id
